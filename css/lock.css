@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+#lock {
+    display: block;
+    position: relative;
+    width: 155px;
+    margin-top: 30px;
+    margin: 0 auto;
+}
+.lock-loop {
+    position: absolute;
+    left: 13px;
+    width: 130px;
+    height: 90px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
+.inner-loop {
+    position: absolute;
+    top: 17px;
+    left: 30px;
+    width: 95px;
+    height: 75px;
+    border-top-left-radius: 48%;
+    border-top-right-radius: 48%;
+    background-color: black;
+    border: 2px solid black;
+}
+.open-lock {
+    position: absolute;
+    left: 13px;
+    top: 75px;
+    background-color: white;
+    width: 18px;
+    height: 30px;
+    border-top: 1px solid black;
+    /* change the display property on this to open and close the lock. */
+     display: none; 
+}
+.lock-body {
+    position: absolute;
+    top: 90px;
+    width: 155px;
+    height: 120px;
+    border-radius: 2%;
+}
+.gray {
+    background: -webkit-linear-gradient(-45deg, lightgray, gray);
+    background: -o-linear-gradient(lightgray, gray);
+    background: -moz-linear-gradient(lightgray, gray);
+    background: -linear-gradient(-45deg, lightgray, gray);
+    border: 2px solid black;
+}

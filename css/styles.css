@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+html {
+	min-height: 100%;
+}
+body {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+.wrapper {
+	overflow: auto;
+	background-image: url("../img/keys_05.jpg");
+	background-size: cover;
+	width: 100%;
+	min-width: 303px;
+	height: 850px;
+}
+h1 {
+	font-size: 35px;
+	color: gold;
+	text-shadow: 1px 1px 3px black;
+
+}
+/*a:link, a:visited { 
+    color: black;
+    text-decoration: none;
+}
+
+a:link:active, a:visited:active { 
+    color: brown;
+    text-decoration: underline;
+}*/
+
+.escape-room-count {
+	font-size: 16px;
+	padding-top: 15px;
+	font-weight: bold;
+}
+
+table {
+	margin: 0 auto;
+	margin-top: 300px;
+	color: black;
+	background-color: rgb(182, 169, 97);
+	border-radius: 5px;
+	padding: 5px;
+	border: 3px solid black;
+}
+
+td {
+	padding: 0px 5px 0px 5px;
+}
+
+.odd {
+	background-color: tan;
+}
+
+/* Make table scroll */
+table.tableSection {
+	display: table;
+}
+table.tableSection thead {
+	border-bottom: 1px solid black;
+}
+table.tableSection thead, table.tableSection tbody {
+	float: left;
+	width: 100%;
+}
+table.tableSection tbody {
+	overflow: auto;
+	height: 350px;
+}
+table.tableSection tr {
+	width: 100%;
+	display: table;
+	text-align: left;
+}
+
+.column-med {
+	width: 15%;
+}
+.column-large {
+	width: 25%; 
+}
+.column-small {
+	width: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+	h1 {
+		font-size: 25px;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	table {
+		font-size: 10px;
+	}
+}

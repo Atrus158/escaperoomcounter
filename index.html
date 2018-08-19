@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Escape Room Completion</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="Tweaked version of the activity counter from Lynda.Com's React.js Essential Training.">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="css/lock.css" />
+
+		<script src="scripts/game_list.js"></script>
+
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+		<script>window.React || document.write('<script src="scripts/react.production.min.js"><\/script>')</script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+		<script>window.ReactDOM || document.write('<script src="scripts/react-dom.production.min.js"><\/script>')</script>
+		<script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+		<script>window.Babel || document.write('<script src="scripts/babel.min.js"><\/script>')</script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<h1>Room Counter</h1>
+			<div id="lock">
+				<div class="lock-loop gray"></div>
+				<div class="inner-loop"></div>
+				<div class="open-lock"></div>
+				<div class="lock-body gray">
+					<div id="react-content"></div>
+				</div>
+			</div>
+			<div id="escape-room-list"></div>
+		</div>
+		
+		<script type="text/babel">
+
+			const calcPercent = (games,achieved) => {
+				return (((games/achieved) * 100).toFixed(0) + '%')
+			}
+			
+			function EscapeRoomCount (props) {
+				return(
+					<div className = "escape-room-count">
+						<div className = "rooms">
+							<span>{props.rooms}</span>
+							<span> played</span>
+						</div>
+						<div className = "finished">
+							<p>
+								<span>{props.finished}</span>
+								<span> finished ({calcPercent(props.finished,props.rooms)})</span>
+							</p>
+						</div>
+						<div className = "beat">
+							<span>{props.beat}</span>
+							<span> won ({calcPercent(props.beat,props.rooms)})</span>
+						</div>
+					</div>
+				);
+			}
+
+			class GameTable extends React.Component {
+
+				render() {
+                    return (
+						<table className="tableSection">
+							<thead>
+								<tr>
+									<th className="column-med">Date</th>
+									<th className="column-large">Game</th>
+									<th className="column-large">Company</th>
+									<th className="column-small">City</th>
+									<th className="column-small">Fini</th>
+									<th className="column-small">Won</th>
+								</tr>
+							</thead>
+							<tbody>
+								{GameList.map(function(item, key) {
+									let trClass="even", fMonth, fDay, fYear;
+									fMonth = item.datePlayed.getMonth()+1;
+									if (fMonth<10) { fMonth = "0" + fMonth; }
+									fDay = item.datePlayed.getDate();
+									if (fDay<10) { fDay = "0" + fDay; }
+									fYear = item.datePlayed.getFullYear().toString().substr(-2);
+                                	if (key%2 == 0) { trClass="odd"; }    
+									return (
+										<tr className={trClass} key = {key}>
+											<td className="column-med">{fMonth}/{fDay}/{fYear}</td>
+											<td className="column-large">{item.gameName}</td>
+											<td className="column-large">{item.company}</td>
+											<td className="column-small">{item.state}</td>
+											<td className="column-small">{(item.fini) ? "Yes" : "No"}</td>
+											<td className="column-small">{(item.won) ? "Yes" : "No"}</td>
+										</tr>
+									)
+								})}
+
+							</tbody>
+						</table>
+					);
+                }
+			}
+
+			class App extends React.Component {
+				constructor(props) {
+					super(props);
+						this.state = {
+							gameCount: GameList.length,
+							gamesFinished: 0,
+							gamesWon: 0,
+						};
+
+						this.calcGamesFiniAndWon = this.calcGamesFiniAndWon.bind(this);
+				}
+
+				calcGamesFiniAndWon() {
+					let gameTotal = GameList.length, finiTotal = 0, wonTotal = 0, a = 0;
+					for(a=0; a<gameTotal; a++) {
+						if (GameList[a].fini === true) { finiTotal = finiTotal + 1; }
+						if (GameList[a].won === true) { wonTotal = wonTotal + 1; }
+					}
+					this.setState(
+						(prevState, props) => {
+							return {
+								gameCount: GameList.length,
+								gamesFinished: finiTotal,
+								gamesWon: wonTotal,
+							}
+						},
+					)
+	
+				}
+
+				componentDidMount() {
+					this.calcGamesFiniAndWon();
+				}
+
+				render() {					
+					return (
+						<EscapeRoomCount
+							rooms = {this.state.gameCount}
+							finished = {this.state.gamesFinished}
+							beat = {this.state.gamesWon}							
+						/>
+			    	);
+				}
+
+			}
+
+			ReactDOM.render(
+				<App />,
+				document.getElementById('react-content'),
+			)
+
+			ReactDOM.render(
+				<GameTable />,
+				document.getElementById('escape-room-list'),
+			)
+
+		</script>
+
+	</body>
+</html>
