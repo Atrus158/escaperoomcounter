@@ -1,3 +1,4 @@
+Working example is at: http://bruceasmith.com/portfolio/er_counter/
 
 The escape room counter is based on the activity counter exercise from the Lynda.com class React.js Essential Training.
 
